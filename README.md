@@ -10,7 +10,7 @@ Raw rows do not show where demand is concentrated, how COVID changed it, or what
 ## What I did
 1. **Cleaned the data in Python (pandas, run in VS Code).** Removed 160 duplicate reviews, converted local prices to USD using ECB rates of 26 Feb 2021, flagged outlier prices instead of deleting them, capped placeholder values, repaired broken text, and built amenity and host features. The script is [`airbnb_cleaning.py`](airbnb_cleaning.py).
 2. **Modelled a star schema in Power BI:** `fact_reviews` with `dim_listing`, `dim_host`, `dim_city`, `dim_date` and `neighbourhood_summary`. Measures are written in DAX.
-3. **Built a five-page dashboard:** Overview, Demand, Pricing, Hosts and Quality, Explore, plus an About page.
+3. **Built a five-page dashboard:** Overview, Demand, Pricing, Hosts and Quality, Explore.
 
 ## Key findings
 Reviews are a proxy for stays, and every finding below is an association, not a cause.
