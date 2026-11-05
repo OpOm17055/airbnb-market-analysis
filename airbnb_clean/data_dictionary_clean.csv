@@ -1,0 +1,112 @@
+﻿table,column,type,description
+fact_reviews,listing_id,number,Listing that was reviewed (links to dim_listing)
+fact_reviews,review_date,date,Date the review was written (links to dim_date). One row = one review
+dim_listing,listing_id,number,Unique listing ID (primary key)
+dim_listing,listing_name,text,Listing title (text repaired where possible)
+dim_listing,host_id,number,Host ID (links to dim_host)
+dim_listing,city,text,City (links to dim_city)
+dim_listing,neighbourhood,text,Neighbourhood name
+dim_listing,latitude,number,Latitude
+dim_listing,longitude,number,Longitude
+dim_listing,property_type,text,Original property type (144 values)
+dim_listing,property_group,text,Property type grouped into 4 groups
+dim_listing,room_type,text,Entire place / Private room / Hotel room / Shared room
+dim_listing,is_entire_place,number,1 if room_type is Entire place
+dim_listing,accommodates,number,Max guests (0 set to blank)
+dim_listing,bedrooms,number,Bedrooms (capped at 10; blank if not stated)
+dim_listing,bedroom_group,text,1 / 2 / 3 / 4+ / Not stated
+dim_listing,min_nights,number,Minimum nights per booking (capped at 365)
+dim_listing,min_nights_group,text,Short vs monthly-rental style listings
+dim_listing,price_local,number,Nightly price in the city's local currency (as in the source)
+dim_listing,price_usd,number,Nightly price in USD at ECB rate of 26 Feb 2021 (blank if price is 0)
+dim_listing,price_status,text,Valid / Zero price / Below $5 / Above city 99th percentile
+dim_listing,price_valid,number,1 if price_status is Valid
+dim_listing,price_usd_clean,number,USD price for valid prices only. USE THIS for price analysis
+dim_listing,price_per_guest_usd,number,price_usd_clean divided by accommodates
+dim_listing,price_tier,text,Quartile of price inside the city (Q1 Budget ... Q4 Premium)
+dim_listing,has_rating,number,1 if the listing has a rating
+dim_listing,review_scores_rating,number,"Overall rating, 20-100 (blank = not rated)"
+dim_listing,rating_band,text,Not rated / Below 80 / 80-89 / 90-94 / 95-99 / 100
+dim_listing,review_scores_accuracy,number,"Accuracy score, 2-10"
+dim_listing,review_scores_cleanliness,number,"Cleanliness score, 2-10"
+dim_listing,review_scores_checkin,number,"Check-in score, 2-10"
+dim_listing,review_scores_communication,number,"Communication score, 2-10"
+dim_listing,review_scores_location,number,"Location score, 2-10"
+dim_listing,review_scores_value,number,"Value score, 2-10"
+dim_listing,instant_bookable,number,1 if instant book
+dim_listing,instant_bookable_label,text,Instant book / Request to book
+dim_listing,host_base,text,"Same country / Abroad / Unknown, from the host's stated location versus the listing's country. 'Abroad' is the reliable bucket"
+dim_listing,amenity_count,number,Number of amenities listed
+dim_listing,amenity_band,text,Basic / Standard / Comfortable / Rich
+dim_listing,has_wifi,number,1 if the listing has this amenity
+dim_listing,has_kitchen,number,1 if the listing has this amenity
+dim_listing,has_washer,number,1 if the listing has this amenity
+dim_listing,has_dryer,number,1 if the listing has this amenity
+dim_listing,has_heating,number,1 if the listing has this amenity
+dim_listing,has_air_conditioning,number,1 if the listing has this amenity
+dim_listing,has_elevator,number,1 if the listing has this amenity
+dim_listing,has_workspace,number,1 if the listing has this amenity
+dim_listing,has_tv,number,1 if the listing has this amenity
+dim_listing,has_free_parking,number,1 if the listing has this amenity
+dim_listing,has_pool,number,1 if the listing has this amenity
+dim_listing,has_gym,number,1 if the listing has this amenity
+dim_listing,has_hot_tub,number,1 if the listing has this amenity
+dim_listing,has_breakfast,number,1 if the listing has this amenity
+dim_listing,has_self_checkin,number,1 if the listing has this amenity
+dim_listing,has_balcony,number,1 if the listing has this amenity
+dim_listing,total_reviews,number,Reviews for this listing in the reviews file
+dim_listing,has_reviews,number,1 if total_reviews > 0
+dim_listing,first_review_date,date,Date of first review
+dim_listing,last_review_date,date,Date of latest review
+dim_listing,bedroom_group_order,number,Sort helper
+dim_listing,min_nights_group_order,number,Sort helper
+dim_listing,price_tier_order,number,Sort helper
+dim_listing,rating_band_order,number,Sort helper
+dim_listing,amenity_band_order,number,Sort helper
+dim_host,host_id,number,Unique host ID (primary key)
+dim_host,host_since,date,Date the host joined
+dim_host,host_since_year,number,Year host joined
+dim_host,host_tenure_years,number,Years on Airbnb at 1 Mar 2021
+dim_host,superhost,number,"1 = Superhost, 0 = not, blank = unknown"
+dim_host,superhost_label,text,Superhost / Regular host / Unknown
+dim_host,identity_verified,number,"1 = identity verified, 0 = not, blank = unknown"
+dim_host,identity_label,text,Verified / Not verified / Unknown
+dim_host,response_time,text,Host response time ('Not reported' if blank)
+dim_host,response_rate,number,"Share of messages answered, 0-1 (blank for ~46% of hosts)"
+dim_host,acceptance_rate,number,"Share of requests accepted, 0-1"
+dim_host,host_listing_count,number,"Listings this host has IN THESE FILES (use this, not the original host_total_listings_count)"
+dim_host,host_type,text,Single / Small multi (2-9) / Professional (10+)
+dim_host,host_city_count,number,Number of these 10 cities the host operates in
+dim_host,host_type_order,number,Sort helper
+dim_host,response_time_order,number,Sort helper
+dim_city,city,text,City (primary key)
+dim_city,country,text,Country
+dim_city,currency,text,Local currency code
+dim_city,usd_per_local_unit,number,"USD per 1 unit of local currency (ECB, 26 Feb 2021)"
+dim_city,fx_date,text,Date of FX rate
+dim_city,price_cap_local,number,99th percentile of local price in this city (outlier cut-off)
+dim_city,price_cap_usd,number,Same cut-off in USD
+dim_city,listings,number,Listings in the file
+dim_city,last_review_date,date,Latest review in the file (scrape cut-off proxy)
+dim_date,date,date,Calendar date (primary key; mark as the date table in Power BI)
+dim_date,year,number,Year
+dim_date,quarter,text,Q1-Q4
+dim_date,month_num,number,1-12
+dim_date,month_name,text,Jan-Dec (sort by month_num)
+dim_date,year_month,text,YYYY-MM text
+dim_date,month_start,date,First day of the month (use for continuous monthly axes)
+dim_date,week_of_year,number,ISO week number
+dim_date,day_of_week_num,number,Monday = 1 ... Sunday = 7
+dim_date,day_name,text,Mon-Sun name (sort by day_of_week_num)
+dim_date,is_weekend,number,1 for Saturday/Sunday
+dim_date,covid_period,text,Pre-COVID (to Feb 2020) / COVID period (Mar 2020 on)
+dim_date,data_status,text,Complete (to 31 Jan 2021) / Partial (scrape cut-off) / No data
+neighbourhood_summary,city,text,City
+neighbourhood_summary,neighbourhood,text,Neighbourhood
+neighbourhood_summary,listings,number,Number of listings
+neighbourhood_summary,latitude,number,Average latitude
+neighbourhood_summary,longitude,number,Average longitude
+neighbourhood_summary,median_price_usd,number,Median valid USD price
+neighbourhood_summary,avg_rating,number,Average overall rating
+neighbourhood_summary,pct_entire_place,number,Share of listings that are entire places (0-1)
+neighbourhood_summary,total_reviews,number,Total reviews

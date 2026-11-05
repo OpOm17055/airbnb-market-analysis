@@ -1,0 +1,132 @@
+Listings: C:\Users\OMPRAKASH BALARA\OneDrive\Desktop\Airbnb_project\Listings.csv
+Reviews:  C:\Users\OMPRAKASH BALARA\OneDrive\Desktop\Airbnb_project\Reviews.csv
+Raw listings: 279,712 rows x 33 cols | raw reviews: 5,373,143 rows
+reviews.date: dates read with format %Y-%m-%d
+Reviews: removed 160 duplicate review_id rows -> 5,372,983 kept
+Reviews whose listing is missing from Listings: 0
+Review dates: 2008-11-16 to 2021-03-01
+listings.host_since: dates read with format %Y-%m-%d
+Listings with no host details (host_since, superhost, verified all blank): 165
+fact_reviews: 5,372,983 rows x 2 columns
+dim_listing: 279,712 rows x 62 columns
+dim_host: 182,024 rows x 16 columns
+dim_city: 10 rows x 9 columns
+dim_date: 4,839 rows x 13 columns
+neighbourhood_summary: 660 rows x 9 columns
+
+ALL VALIDATION CHECKS PASSED
+
+================ CLEANING REPORT ================
+Listings in: 279,712 | listings out: 279,712 (none removed; problem values are flagged, not deleted)
+Reviews in: 5,373,143 | duplicate review_id removed: 160 | reviews out: 5,372,983
+
+Price status (price_usd_clean is filled only for 'Valid'):
+price_status
+Valid                         276839
+Above city 99th percentile      2753
+Zero price                       113
+Below $5                           7
+
+Price cap per city (99th percentile of local price):
+          city currency  price_cap_local  price_cap_usd
+         Paris      EUR           600.00         727.26
+      New York      USD           850.00         850.00
+        Sydney      AUD          1721.39        1337.07
+          Rome      EUR           600.00         727.26
+Rio de Janeiro      BRL          5696.64        1036.09
+      Istanbul      TRY          3805.88         511.61
+   Mexico City      MXN          7294.72         349.65
+       Bangkok      THB         15553.39         512.30
+     Cape Town      ZAR         22018.90        1474.33
+     Hong Kong      HKD          8799.00        1134.48
+
+USD per local unit (ECB, 2021-02-26):
+          city currency  usd_per_local_unit
+         Paris      EUR            1.212100
+      New York      USD            1.000000
+        Sydney      AUD            0.776738
+          Rome      EUR            1.212100
+Rio de Janeiro      BRL            0.181877
+      Istanbul      TRY            0.134427
+   Mexico City      MXN            0.047932
+       Bangkok      THB            0.032938
+     Cape Town      ZAR            0.066958
+     Hong Kong      HKD            0.128933
+
+min_nights capped at 365: 96 listings | bedrooms capped at 10: 372 listings at the cap | accommodates=0 set to blank: 85
+Dropped columns: maximum_nights (junk values), district (87% blank), host_total_listings_count (unreliable: 0 for 33K rows), host_has_profile_pic (99.6% 'true'), host_location (replaced by host_base), reviewer_id, review_id
+
+Listing name repaired for mojibake. Listings with a rating: 188,307 (67.3%); listings with at least one review: 193,556
+
+Amenity flag coverage (% of listings):
+has_wifi                93.4
+has_kitchen             86.7
+has_washer              66.9
+has_dryer               33.9
+has_heating             66.2
+has_air_conditioning    51.4
+has_elevator            36.3
+has_workspace           64.3
+has_tv                  77.6
+has_free_parking        40.5
+has_pool                13.4
+has_gym                 10.9
+has_hot_tub              4.7
+has_breakfast           12.3
+has_self_checkin        11.7
+has_balcony             18.0
+
+Host base (vs listing city):
+host_base
+Same country    260667
+Abroad           18205
+Unknown            840
+
+Host type (hosts):
+host_type
+Single-listing host               150165
+Small multi-listing host (2-9)     30134
+Professional host (10+)             1725
+
+Median valid nightly price in USD by city:
+city
+New York          98.0
+Paris             97.0
+Sydney            93.2
+Rome              78.8
+Cape Town         70.3
+Rio de Janeiro    50.7
+Hong Kong         49.0
+Bangkok           35.9
+Istanbul          33.6
+Mexico City       31.2
+
+Reviews per year:
+review_date
+2008          2
+2009        115
+2010       1236
+2011       6253
+2012      19922
+2013      50522
+2014     122132
+2015     280332
+2016     501754
+2017     777198
+2018    1142474
+2019    1633427
+2020     755309
+2021      82307
+
+Use reviews up to 2021-01-31 for trends: later months are partial because each city was scraped on a different day:
+          city last_review_date
+      New York       2021-02-05
+        Sydney       2021-02-11
+         Paris       2021-02-13
+          Rome       2021-02-13
+     Hong Kong       2021-02-21
+       Bangkok       2021-02-23
+   Mexico City       2021-02-24
+     Cape Town       2021-02-24
+Rio de Janeiro       2021-02-25
+      Istanbul       2021-03-01
