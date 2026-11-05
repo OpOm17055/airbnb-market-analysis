@@ -33,7 +33,7 @@ Reviews are a proxy for stays, and every finding below is an association, not a 
 
 | Explore | About |
 |---|---|
-| ![Explore](screenshots/explore.png) | ![About](screenshots/about.png) |
+| ![Explore](screenshots/explore.png) |
 
 ## Files
 | File | What it is |
