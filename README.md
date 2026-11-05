@@ -31,8 +31,8 @@ Reviews are a proxy for stays, and every finding below is an association, not a 
 |---|---|
 | ![Pricing](screenshots/pricing.png) | ![Hosts](screenshots/hosts.png) |
 
-| Explore | About |
-|---|---|
+| Explore | 
+|---|
 | ![Explore](screenshots/explore.png) |
 
 ## Files
